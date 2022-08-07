@@ -22,8 +22,6 @@ int wmain(int argc, wchar_t * argv[])
 
 	wchar_t * arg_str = GetCommandLine();
 
-	// printf("%ls\n", arg_str); // DEBUG
-
 	if (*arg_str != L'"')
 	{
 		arg_str++;
@@ -61,13 +59,8 @@ int wmain(int argc, wchar_t * argv[])
 		.cb = sizeof(STARTUPINFO)
 	};
 
-	// GetStartupInfo(&startup_info); // TODO probably not necessary
-
-	// printf("%ls\n", arg_str); // DEBUG
-	// printf("%ls\n", scratch_buf); // DEBUG
-
 	PROCESS_INFORMATION process_info;
-	// TODO check environment
+
 	BOOL success = CreateProcess(
 		L"C:\\Windows\\System32\\cmd.exe",
 		scratch_buf,
@@ -86,9 +79,7 @@ int wmain(int argc, wchar_t * argv[])
 	// you get weird behaviour in cmd if you don't explicitly wait
 	WaitForSingleObject(process_info.hProcess, INFINITE);
 
-	// TODO probably not necessary
-	// CloseHandle(process_info.hProcess);
-	// CloseHandle(process_info.hThread);
+	// no need to close handles, as we are exiting anyway
 
 	return 0;
 }

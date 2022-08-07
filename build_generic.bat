@@ -5,9 +5,6 @@ if not "%2"=="" goto args_error
 
 set bat_filename=%1
 
-rem rem DEBUG
-rem set bat_filename=cl
-
 goto compile
 
 :args_error
@@ -23,9 +20,5 @@ set compile_options=/nologo /D_CRT_SECURE_NO_WARNINGS /W4 /wd4100
 
 call cl /D"BAT_FILENAME=L\"%bat_filename%\"" /Fe"%build_dir%%bat_filename%" /Fo"%build_dir%" /Fd"%build_dir%" %compile_options% call_bat.c
 echo.
-
-rem rem DEBUG
-rem echo.
-rem call "%build_dir%%bat_filename%"
 
 :end
