@@ -20,9 +20,11 @@ int wmain(int argc, wchar_t * argv[])
 {
 	wchar_t * scratch_buf = VirtualAlloc(NULL, SCRATCH_BUF_LEN, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 
-	wchar_t * arg_str = GetCommandLine();
+	wchar_t * full_cmd_line = GetCommandLine();
 
-	if (*arg_str != L'"')
+	// skip over argv[0]
+	wchar_t * arg_str = full_cmd_line;
+	if (*arg_str == L'"')
 	{
 		arg_str++;
 		while (*arg_str)
@@ -53,6 +55,14 @@ int wmain(int argc, wchar_t * argv[])
 	wcscat(scratch_buf, BAT_FILENAME);
 	wcscat(scratch_buf, BAT_EXT);
 	wcscat(scratch_buf, arg_str);
+
+#ifdef DEBUG
+	printf("GetCommandLine: %ls\n", full_cmd_line);
+	printf("GetCommandLine (arguments only): %ls\n", arg_str);
+	printf("Arguments to 'cmd.exe': %ls\n", scratch_buf);
+	printf("\n");
+	fflush(stdout);
+#endif
 
 	STARTUPINFO startup_info =
 	{
