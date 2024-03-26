@@ -19,3 +19,7 @@ call build_generic.bat release clang++
 echo Building link.exe
 call build_generic.bat debug link
 call build_generic.bat release link
+
+echo Building rc.exe
+call build_generic.bat debug rc
+call build_generic.bat release rc
